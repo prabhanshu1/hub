@@ -1,6 +1,11 @@
 # hub tab-completion script for bash.
 # This script complements the completion script that ships with git.
 
+
+# checking if git built-in completion is available and sourcing it for hub tab complition uses.
+[ -f /usr/share/bash-completion/completions/git ] && . /usr/share/bash-completion/completions/git
+
+
 # Check that git tab completion is available
 if declare -F _git > /dev/null; then
   # Duplicate and rename the 'list_all_commands' function
@@ -31,8 +36,10 @@ EOF
   # hub alias [-s] [SHELL]
   _git_alias() {
     local i c=2 s=-s sh shells="bash zsh sh ksh csh fish"
+    echo $cword
     while [ $c -lt $cword ]; do
       i="${words[c]}"
+      echo $i
       case "$i" in
         -s)
           unset s
